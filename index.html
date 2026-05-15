@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesan Spesial Untukmu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(to bottom,#050505,#111827);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    position:relative;
+}
+
+/* Bintang */
+.stars{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:blink 3s infinite;
+}
+
+@keyframes blink{
+    0%,100%{
+        opacity:0.2;
+    }
+    50%{
+        opacity:1;
+    }
+}
+
+/* Card */
+.card{
+    position:relative;
+    z-index:2;
+    width:90%;
+    max-width:450px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:25px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+    animation:fade 1.5s ease;
+}
+
+/* Animasi muncul */
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:42px;
+    margin-bottom:15px;
+    color:#fff;
+}
+
+.nama{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.pesan{
+    font-size:17px;
+    line-height:1.8;
+    color:#e5e7eb;
+    margin-bottom:25px;
+}
+
+.dari{
+    opacity:0.8;
+    font-size:15px;
+}
+
+/* Tombol */
+button{
+    margin-top:25px;
+    padding:12px 24px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* Hati */
+.heart{
+    position:absolute;
+    color:rgba(255,255,255,0.2);
+    font-size:20px;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+    }
+    to{
+        transform:translateY(-120px);
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="card">
+    <h1>Pesan Untukmu ghiana😌</h1>
+
+    <div class="nama" id="untuk">
+        Untuk Kamu
+    </div>
+
+    <div class="pesan" id="pesan">
+        Semangat yaa menjalani harimu.  
+        Tidak semua orang kuat menghadapi dunia seperti dirimu.  
+        Tetap tersenyum walaupun hari terasa berat 🌙
+    </div>
+
+    <div class="dari" id="dari">
+        Dari seseorang yang peduli ✨
+    </div>
+
+    <button onclick="playMusic()">
+        Putar Musik 🎵
+    </button>
+</div>
+
+<!-- Musik -->
+<audio id="music" loop>
+    <source src="https://files.catbox.moe/5i0n4u.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+/* Ambil parameter link */
+const params = new URLSearchParams(window.location.search);
+
+const untuk = params.get("untuk");
+const dari = params.get("dari");
+const pesan = params.get("pesan");
+
+if(untuk){
+    document.getElementById("untuk").innerText = "Untuk " + untuk + " 💖";
+}
+
+if(dari){
+    document.getElementById("dari").innerText = "Dari " + dari;
+}
+
+if(pesan){
+    document.getElementById("pesan").innerText = pesan;
+}
+
+/* Musik */
+function playMusic(){
+    document.getElementById("music").play();
+}
+
+/* Generate bintang */
+for(let i=0;i<80;i++){
+    const star=document.createElement("div");
+    star.classList.add("star");
+
+    star.style.top=Math.random()*100+"%";
+    star.style.left=Math.random()*100+"%";
+    star.style.animationDuration=(Math.random()*3+2)+"s";
+
+    document.getElementById("stars").appendChild(star);
+}
+
+/* Generate hati */
+for(let i=0;i<20;i++){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+
+    heart.innerHTML="❤";
+
+    heart.style.left=Math.random()*100+"%";
+    heart.style.fontSize=(Math.random()*20+10)+"px";
+    heart.style.animationDuration=(Math.random()*10+5)+"s";
+
+    document.body.appendChild(heart);
+}
+
+</script>
+
+</body>
+</html>
